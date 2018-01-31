@@ -25,6 +25,7 @@ public class HexStringUtil {
     }
 
     private static String hexStringBase = "0123456789abcdef";
+    private static final String hexStringBase = "0123456789abcdef";
 
     public static byte[] hexStringToByteArray(String hexString) {
         if (StringUtils.isBlank(hexString)) {
