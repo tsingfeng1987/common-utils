@@ -19,12 +19,13 @@ public class HexStringUtil {
                 sb.append("0");
             }
             sb.append(s);
+
+
         }
         return sb.toString();
 
     }
 
-    private static String hexStringBase = "0123456789abcdef";
     private static final String hexStringBase = "0123456789abcdef";
 
     public static byte[] hexStringToByteArray(String hexString) {
@@ -46,22 +47,4 @@ public class HexStringUtil {
         return bytes;
     }
 
-
-    public static void main(String[] args) {
-
-        byte[] bs = new byte[6];
-        for (int i = 0; i < bs.length; i++) {
-            bs[i] = (byte) (i * 10);
-        }
-
-
-        String hex = byteArrayToHexString(bs);
-        System.out.println("hex: " + hex);
-        byte[] bytes = hexStringToByteArray(hex);
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < bytes.length; i++) {
-            builder.append(bytes[i]).append(",");
-        }
-        System.out.println("bytes: " + builder.toString());
-    }
 }
