@@ -1,6 +1,7 @@
 package com.qing.common.utils.json;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -17,15 +18,17 @@ public class JacksonUtil {
 
     }
 
-    public static Object stringToJson(String str, Class<?> clazz) throws IOException {
+    public static <T> T stringToJson(String str, Class<T> clazz) throws IOException {
 
         ObjectMapper objectMapper = new ObjectMapper();
 
         return objectMapper.readValue(str, clazz);
     }
 
-    public static List<Object> stringToList(String str, Class clazz) {
-        return null;
+    public static <T> List<T> stringToList(String str, Class<T> clazz) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JavaType javaType = objectMapper.getTypeFactory().constructParametricType(List.class, clazz);
+        return objectMapper.readValue(str,javaType);
     }
 }
 
