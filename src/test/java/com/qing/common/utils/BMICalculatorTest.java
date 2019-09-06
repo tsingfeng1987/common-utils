@@ -7,7 +7,9 @@ public class BMICalculatorTest {
     @Test
     public void testCalculate() {
         BMICalculator bmiCalculator = new BMICalculator();
-        double bmi = bmiCalculator.calculate(78, 1.66);
+        int weight = 80;
+        double height = 1.67;
+        double bmi = bmiCalculator.calculate(weight, height);
         System.out.println(bmi);
     }
 }

@@ -5,6 +5,7 @@ import com.qing.common.utils.model.JsonObj;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,14 +13,24 @@ import java.util.List;
  */
 public class JacksonUtilTest extends SuperTest {
 
+    private String jsonStr;
 
     @Test
     public void testJsonToString() {
         JsonObj jsonObj = new JsonObj();
         jsonObj.setAnInt(1);
         jsonObj.setAnStr("str1");
+        jsonObj.setAnDate(new Date());
+
         try {
-            System.out.println("result= " + JacksonUtil.jsonToString(jsonObj));
+            final String s = JacksonUtil.jsonToString(jsonObj);
+            System.out.println("result= " + s);
+            try {
+                JsonObj jsonObj1 = JacksonUtil.stringToJson(s, JsonObj.class);
+                System.out.println("json= " + jsonObj1.getAnInt() + ", " + jsonObj1.getAnStr());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -29,7 +40,7 @@ public class JacksonUtilTest extends SuperTest {
     public void testStringToJson() {
         String str = "{\"anInt\":11,\"anStr\":\"str11\"}";
         try {
-            JsonObj jsonObj = JacksonUtil.stringToJson(str, JsonObj.class);
+            JsonObj jsonObj = JacksonUtil.stringToJson(jsonStr, JsonObj.class);
             System.out.println("json= " + jsonObj.getAnInt() + ", " + jsonObj.getAnStr());
         } catch (Exception e) {
             e.printStackTrace();
