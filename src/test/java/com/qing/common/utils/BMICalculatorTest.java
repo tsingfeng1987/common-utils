@@ -12,4 +12,11 @@ public class BMICalculatorTest {
         double bmi = bmiCalculator.calculate(weight, height);
         System.out.println(bmi);
     }
+
+    @Test
+    public void testASCII() {
+        String singleLine = "--";
+        String multiLineStart = "/*";
+        String multiLineEnd = "*/";
+    }
 }

@@ -127,6 +127,18 @@ public class ByteUtil {
         return data;
     }
 
+    public static byte[] hexStr2BytesWithoutSpace(String s) {
+        char[] chars = s.toCharArray();
+
+        byte[] data = new byte[chars.length >>> 1];
+
+        for(int i = 0; i < data.length; ++i) {
+            data[i] = (byte) ((Character.digit(chars[2 * i], 16) << 4) + Character.digit(chars[2 * i + 1], 16));
+        }
+
+        return data;
+    }
+
     public static final String toHexString(byte[] b) {
         String hexChar = "0123456789ABCDEF";
         StringBuffer sb = new StringBuffer();

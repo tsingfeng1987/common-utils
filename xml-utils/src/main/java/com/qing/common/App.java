@@ -1,6 +1,7 @@
 package com.qing.common;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.io.File;
@@ -43,13 +44,13 @@ public class App
 //        testLongArray();
 //        convertSingleDataToSql();
 //        readDataAndWriteSql();
-//        readMultiFilesAndWriteSql();
+        readMultiFilesAndWriteSql();
 
-        List<Long> longs = Arrays.asList(1L, 2L, 3L, 4L);
+/*        List<Long> longs = Arrays.asList(1L, 2L, 3L, 4L);
         System.out.println("longs: " + longs);
         List<Long> collect = longs.stream().filter(item -> item > 2L).collect(Collectors.toList());
         System.out.println("Collect: "+collect);
-        System.out.println("longs: " + longs);
+        System.out.println("longs: " + longs);*/
 
     }
 
@@ -78,9 +79,21 @@ public class App
     }
 
     private static void readMultiFilesAndWriteSql() {
-        String dir = "C:\\Users\\tsing\\Desktop\\033edata\\";
+        String dir = "F:\\Downloads\\TencentFiles\\344041962\\FileRecv\\";
+//        String dir = "C:\\Users\\tsing\\Desktop\\033edata\\";
         String[] fileNames = {"1.txt", "2.txt", "3.txt", "4.txt"};
-        Iterator<File> txtIt = FileUtils.iterateFiles(new File(dir), null, false);
+        String fileToFound = "1(4).log";
+        Iterator<File> txtIt = FileUtils.iterateFiles(new File(dir), new IOFileFilter() {
+            @Override
+            public boolean accept(File file) {
+                return fileToFound.equals(file.getName());
+            }
+
+            @Override
+            public boolean accept(File dir, String name) {
+                return fileToFound.equals(name);
+            }
+        }, null);
         while (txtIt.hasNext()) {
             File next = txtIt.next();
             int lineNum=1;
@@ -120,7 +133,7 @@ public class App
 
     private static void handleOneLine(int lineNum, String line) {
         String dataStr;
-        String tag = "==>";
+        String tag = "read client data ==>";
         int tagLength = tag.length();
         int i = line.indexOf(tag);
         if (i < 0) {
